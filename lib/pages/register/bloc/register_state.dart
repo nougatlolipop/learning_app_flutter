@@ -22,4 +22,4 @@ class RegisterState {
   }
 }
 
-// class RegisterInitial extends RegisterState {}
+class RegisterInitial extends RegisterState {}

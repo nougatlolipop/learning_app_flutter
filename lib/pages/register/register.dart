@@ -5,6 +5,7 @@ import 'package:learning_app/pages/common_widgets.dart';
 import 'package:learning_app/pages/register/bloc/register_bloc.dart';
 import 'package:learning_app/pages/register/bloc/register_event.dart';
 import 'package:learning_app/pages/register/bloc/register_state.dart';
+import 'package:learning_app/pages/register/register_controller.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -36,7 +37,7 @@ class _RegisterState extends State<Register> {
                           "Enter your details below and free sign up"),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 36.h),
+                      margin: EdgeInsets.only(top: 60.h),
                       padding: EdgeInsets.only(left: 25.w, right: 25.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +93,8 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     buildLogInAndRegButton("Sign up", "login", () {
-                      Navigator.of(context).pushNamed("register");
+                      RegisterController(context: context)
+                          .handleEmailRegister();
                     }),
                   ],
                 ),

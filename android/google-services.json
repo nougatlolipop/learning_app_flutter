@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287248674371",
+    "project_id": "ulearning-app-2caf8",
+    "storage_bucket": "ulearning-app-2caf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287248674371:android:6a74622be66d804cbc2ef6",
+        "android_client_info": {
+          "package_name": "com.ivan.learning_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVZtnXwvKGk1WNR8CFTibQJOlDK_j8NyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

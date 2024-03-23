@@ -1,27 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_app/common/routes/pages.dart';
 import 'package:learning_app/common/values/colors.dart';
-import 'package:learning_app/pages/bloc_providers.dart';
-import 'package:learning_app/pages/register/register.dart';
-import 'package:learning_app/pages/sign_in/sign_in.dart';
-import 'package:learning_app/pages/welcome/welcome.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:learning_app/global.dart';
+import 'common/routes/routes.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-          options: const FirebaseOptions(
-            apiKey: "AIzaSyCVZtnXwvKGk1WNR8CFTibQJOlDK_j8NyM",
-            appId: "1:287248674371:android:6a74622be66d804cbc2ef6",
-            messagingSenderId: "287248674371",
-            projectId: "ulearning-app-2caf8",
-          ),
-        )
-      : await Firebase.initializeApp();
+  await Global.init();
   runApp(const MyApp());
 }
 
@@ -31,8 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: AppBlocProviders.allBlocProviders,
+      providers: [...AppPages.allBlocProviders(context)],
       child: ScreenUtilInit(
+        designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -44,11 +31,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.white,
             ),
           ),
-          home: const Welcome(),
-          routes: {
-            "signIn": (context) => const SignIn(),
-            "register": (context) => const Register(),
-          },
+          onGenerateRoute: AppPages.GenerateRouteSettings,
         ),
       ),
     );

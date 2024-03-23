@@ -2,6 +2,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:learning_app/common/values/constants.dart';
+import 'package:learning_app/global.dart';
 import 'package:learning_app/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:learning_app/pages/welcome/bloc/welcome_event.dart';
 import 'package:learning_app/pages/welcome/bloc/welcome_state.dart';
@@ -130,8 +132,10 @@ class _WelcomeState extends State<Welcome> {
                 curve: Curves.easeIn,
               );
             } else {
+              Global.storageService
+                  .setBool(AppConstans.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil("signIn", (route) => false);
+                  .pushNamedAndRemoveUntil("/sign_in", (route) => false);
             }
           },
           child: Container(
