@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:learning_app/common/values/colors.dart';
+import 'package:learning_app/common/widgets/base_text_widget.dart';
 
 AppBar buildAppBar() {
   return AppBar(
     title: Container(
-      child: Text(
-        "Settings",
-        style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.primaryText),
-      ),
+      child: reusableText("Settings"),
     ),
   );
 }

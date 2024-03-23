@@ -1,11 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learning_app/common/values/colors.dart';
+import 'package:learning_app/common/widgets/base_text_widget.dart';
 import 'package:learning_app/pages/home/bloc/home_page_bloc.dart';
 import 'package:learning_app/pages/home/bloc/home_page_event.dart';
 import 'package:learning_app/pages/home/bloc/home_page_state.dart';
@@ -186,18 +184,6 @@ Widget _slidersContainer({String path = "assets/icons/art.png"}) {
   );
 }
 
-Widget _reusableText(String text,
-    {Color color = AppColors.primaryText,
-    int fontSize = 16,
-    FontWeight fontWeight = FontWeight.bold}) {
-  return Container(
-      child: Text(
-    text,
-    style:
-        TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
-  ));
-}
-
 Widget _reusableMenuText(String menuText,
     {Color backgoundColor = AppColors.primaryElement,
     Color textColor = AppColors.primaryElementText}) {
@@ -213,7 +199,7 @@ Widget _reusableMenuText(String menuText,
           color: AppColors.primaryElement,
         ),
       ),
-      child: _reusableText(
+      child: reusableText(
         menuText,
         color: textColor,
         fontWeight: FontWeight.normal,
@@ -233,10 +219,10 @@ Widget menuView() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _reusableText("Choose your course"),
+            reusableText("Choose your course"),
             GestureDetector(
               onTap: () {},
-              child: _reusableText(
+              child: reusableText(
                 "See all",
                 fontSize: 10,
                 color: AppColors.primaryThirdElementText,

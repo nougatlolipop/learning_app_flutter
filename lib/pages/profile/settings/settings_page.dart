@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_app/common/values/constants.dart';
 import 'package:learning_app/global.dart';
+import 'package:learning_app/pages/application/bloc/app_bloc.dart';
+import 'package:learning_app/pages/application/bloc/app_event.dart';
 import 'package:learning_app/pages/profile/settings/bloc/settings_bloc.dart';
 import 'package:learning_app/pages/profile/settings/bloc/settings_state.dart';
 import 'package:learning_app/pages/profile/settings/widgets/settings_widgets.dart';
@@ -15,6 +17,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   void removeUserData() {
+    context.read<AppBloc>().add(const TriggerAppEvent(0));
     Global.storageService.remove(AppConstans.STORAGE_USER_TOKEN_KEY);
     Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
   }
