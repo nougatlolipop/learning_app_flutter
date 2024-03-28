@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:learning_app/common/entities/user.dart';
 import 'package:learning_app/common/values/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,5 +32,19 @@ class StorageService {
 
   Future<void> remove(String key) {
     return _prefs.remove(key);
+  }
+
+  String getUserToken() {
+    return _prefs.getString(AppConstans.STORAGE_USER_TOKEN_KEY) ?? "";
+  }
+
+  UserItem? getUserProfile() {
+    var profileOnline =
+        _prefs.getString(AppConstans.STORAGE_USER_PROFILE_KEY) ?? "";
+    if (profileOnline.isNotEmpty) {
+      return UserItem.fromJson(jsonDecode(profileOnline));
+    }
+
+    return null;
   }
 }

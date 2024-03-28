@@ -4,10 +4,10 @@ import 'package:learning_app/pages/profile/settings/bloc/settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc() : super(const SettingsState()) {
-    on<TriggerSettings>(_tiggerSettings );
+    on<TriggerSettings>(_tiggerSettings);
   }
 
-  _tiggerSettings(SettingsEvent event,Emitter<SettingsState> emit){
+  _tiggerSettings(SettingsEvent event, Emitter<SettingsState> emit) {
     emit(const SettingsState());
   }
 }

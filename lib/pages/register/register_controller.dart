@@ -37,8 +37,8 @@ class RegisterController {
       return;
     }
 
-    if (password != rePassword) {
-      toastInfo(msg: "The password confirmation is wrong");
+    if (password.compareTo(rePassword) != 0) {
+      toastInfo(msg: "You password and password confirmation is not match");
       return;
     }
 
@@ -49,8 +49,13 @@ class RegisterController {
       if (credential.user != null) {
         await credential.user?.sendEmailVerification();
         await credential.user?.updateDisplayName(userName);
+
+        String photoUrl = "uploads/default.png";
+        await credential.user?.updatePhotoURL(photoUrl);
         toastInfo(msg: "An email verification has been sent to your email");
-        Navigator.of(context).pop();
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
