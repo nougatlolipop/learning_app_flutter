@@ -4,7 +4,7 @@ import 'package:learning_app/common/values/colors.dart';
 
 Widget reusableText(String text,
     {Color color = AppColors.primaryText,
-    int fontSize = 16,
+    double fontSize = 16,
     FontWeight fontWeight = FontWeight.bold}) {
   return Container(
       child: Text(
@@ -12,4 +12,10 @@ Widget reusableText(String text,
     style:
         TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
   ));
+}
+
+AppBar buildAppBar(String url) {
+  return AppBar(
+    title: reusableText(url),
+  );
 }

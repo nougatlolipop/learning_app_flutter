@@ -38,13 +38,13 @@ class StorageService {
     return _prefs.getString(AppConstans.STORAGE_USER_TOKEN_KEY) ?? "";
   }
 
-  UserItem? getUserProfile() {
+  UserItem getUserProfile() {
     var profileOnline =
         _prefs.getString(AppConstans.STORAGE_USER_PROFILE_KEY) ?? "";
     if (profileOnline.isNotEmpty) {
       return UserItem.fromJson(jsonDecode(profileOnline));
     }
 
-    return null;
+    return UserItem();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_app/common/routes/routes.dart';
 import 'package:learning_app/common/values/constants.dart';
+import 'package:learning_app/common/widgets/base_text_widget.dart';
 import 'package:learning_app/global.dart';
 import 'package:learning_app/pages/application/bloc/app_bloc.dart';
 import 'package:learning_app/pages/application/bloc/app_event.dart';
@@ -31,7 +32,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar("Settings"),
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {

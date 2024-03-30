@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learning_app/common/apis/user_api.dart';
 import 'package:learning_app/common/entities/entities.dart';
+import 'package:learning_app/common/routes/routes.dart';
 import 'package:learning_app/common/values/constants.dart';
 import 'package:learning_app/common/widgets/flutter_toast.dart';
 import 'package:learning_app/global.dart';
+import 'package:learning_app/pages/home/home_controller.dart';
 import 'package:learning_app/pages/sign_in/bloc/signin_bloc.dart';
 
 class SignInController {
@@ -59,7 +61,10 @@ class SignInController {
             loginRequestEntity.open_id = id;
             loginRequestEntity.type = 1;
 
-            asycnPostAllData(loginRequestEntity);
+            await asycnPostAllData(loginRequestEntity);
+            if (context.mounted) {
+              await HomeController(context: context).init();
+            }
           } else {
             toastInfo(msg: "Currently you are not a user of this app");
             return;
@@ -79,7 +84,7 @@ class SignInController {
     }
   }
 
-  void asycnPostAllData(LoginRequestEntity loginRequestEntity) async {
+  Future<void> asycnPostAllData(LoginRequestEntity loginRequestEntity) async {
     EasyLoading.show(
       indicator: const CircularProgressIndicator(),
       maskType: EasyLoadingMaskType.clear,
@@ -90,12 +95,13 @@ class SignInController {
       try {
         Global.storageService.setString(
             AppConstans.STORAGE_USER_PROFILE_KEY, jsonEncode(result.data!));
+        print("...........................");
         Global.storageService.setString(
             AppConstans.STORAGE_USER_TOKEN_KEY, result.data!.access_token!);
         EasyLoading.dismiss();
         if (context.mounted) {
           Navigator.of(context)
-              .pushNamedAndRemoveUntil("/application", (route) => false);
+              .pushNamedAndRemoveUntil(AppRoutes.APPLICATION, (route) => false);
         }
       } catch (e) {
         print("saving local storage error: ${e.toString()}");
