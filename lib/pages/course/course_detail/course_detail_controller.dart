@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learning_app/common/apis/course_api.dart';
+import 'package:learning_app/common/apis/lesson_api.dart';
 import 'package:learning_app/common/entities/course.dart';
+import 'package:learning_app/common/entities/lesson.dart';
 import 'package:learning_app/common/routes/routes.dart';
 import 'package:learning_app/common/widgets/flutter_toast.dart';
 import 'package:learning_app/pages/course/course_detail/bloc/course_detail_bloc.dart';
@@ -15,24 +17,35 @@ class CourseDetailController {
 
   void init() async {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    asyncLoadAllData(args['id']);
+    asyncLoadCourseData(args['id']);
+    asyncLoadLessonData(args['id']);
   }
 
-  asyncLoadAllData(int? id) async {
+  asyncLoadCourseData(int? id) async {
     CourseRequestEntity courseRequestEntity = CourseRequestEntity();
     courseRequestEntity.id = id;
     var result = await CourseApi.courseDetail(params: courseRequestEntity);
 
     if (result.code == 200) {
       if (context.mounted) {
-        print('---------------context is ready---------------');
         context.read<CourseDetailBloc>().add(TriggerCourseDetail(result.data!));
-      } else {
-        print('---------------context is not available---------------');
-      }
+      } else {}
     } else {
       toastInfo(msg: "Something went wrong");
-      print('---------------Error code ${result.code}---------------');
+    }
+  }
+
+  asyncLoadLessonData(int? id) async {
+    LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
+    lessonRequestEntity.id = id;
+    var result = await LessonApi.lessonList(params: lessonRequestEntity);
+
+    if (result.code == 200) {
+      if (context.mounted) {
+        context.read<CourseDetailBloc>().add(TriggerLessonList(result.data!));
+      } else {}
+    } else {
+      toastInfo(msg: "Something went wrong");
     }
   }
 

@@ -156,68 +156,79 @@ Widget courseSummaryView(BuildContext context, CourseDetailState state) {
   );
 }
 
-Widget courseLessonList() {
-  return Container(
-    width: 325.w,
-    height: 80.h,
-    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-    decoration: BoxDecoration(
-      color: const Color.fromRGBO(255, 255, 255, 1),
-      borderRadius: BorderRadius.circular(
-        10.w,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          spreadRadius: 2,
-          blurRadius: 3,
-          offset: const Offset(0, 1),
-        )
-      ],
-    ),
-    child: InkWell(
-      onTap: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 60.w,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.w),
-                  image: const DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage(
-                      "assets/icons/Image_1.png",
-                    ),
-                  ),
-                ),
+Widget courseLessonList(CourseDetailState state) {
+  return SingleChildScrollView(
+    child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: state.lessonItem.length,
+        itemBuilder: ((context, index) {
+          return Container(
+            margin: EdgeInsets.only(top: 10.h),
+            width: 325.w,
+            height: 80.h,
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(255, 255, 255, 1),
+              borderRadius: BorderRadius.circular(
+                10.w,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                )
+              ],
+            ),
+            child: InkWell(
+              onTap: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _listContainer("UI Design"),
-                  _listContainer("36 Hours",
-                      fontSize: 10,
-                      color: AppColors.primaryThirdElementText,
-                      fontWeight: FontWeight.normal),
+                  Row(
+                    children: [
+                      Container(
+                        width: 60.w,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.w),
+                          image: DecorationImage(
+                            fit: BoxFit.fitWidth,
+                            image: NetworkImage(
+                              AppConstans.SERVER_UPLOADS +
+                                  state.lessonItem[index].thumbnail.toString(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _listContainer(
+                              state.lessonItem[index].name.toString()),
+                          _listContainer(
+                              state.lessonItem[index].description.toString(),
+                              fontSize: 10,
+                              color: AppColors.primaryThirdElementText,
+                              fontWeight: FontWeight.normal),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    child: Image(
+                      width: 24.h,
+                      height: 24.h,
+                      image: AssetImage("assets/icons/arrow_right.png"),
+                    ),
+                  )
                 ],
               ),
-            ],
-          ),
-          Container(
-            child: Image(
-              width: 24.h,
-              height: 24.h,
-              image: AssetImage("assets/icons/arrow_right.png"),
             ),
-          )
-        ],
-      ),
-    ),
+          );
+        })),
   );
 }
 

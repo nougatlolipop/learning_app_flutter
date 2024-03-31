@@ -5,10 +5,16 @@ import 'package:learning_app/pages/course/course_detail/bloc/course_detail_state
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   CourseDetailBloc() : super(const CourseDetailState()) {
     on<TriggerCourseDetail>(_triggerCourseDetail);
+    on<TriggerLessonList>(_triggerLessonList);
   }
 
   void _triggerCourseDetail(
       TriggerCourseDetail event, Emitter<CourseDetailState> emit) {
     emit(state.copyWith(courseItem: event.courseItem));
+  }
+
+  void _triggerLessonList(
+      TriggerLessonList event, Emitter<CourseDetailState> emit) {
+    emit(state.copyWith(lessonItem: event.lessonItem));
   }
 }
